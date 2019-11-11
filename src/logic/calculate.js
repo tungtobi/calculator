@@ -12,6 +12,9 @@ export default function calculate(obj, btnName) {
     };
   }
 
+  console.log(obj);
+
+
   if (btnName === "DEL") {
     if (obj.next) {
       let length = obj.next.length;
@@ -52,14 +55,17 @@ export default function calculate(obj, btnName) {
   }
 
   if (btnName === "%") {
-    if (obj.next) {
+    if (obj.next && !obj.operator) {
       return {
         next: (parseInt(obj.next)/100).toString(),
       };
     }
-    return {
-      result: (parseInt(obj.result)/100).toString(),
-    };
+    if (obj.result) {
+      return {
+        result: (parseInt(obj.result)/100).toString(),
+      };
+    }
+    return {};
   }
 
   if (btnName === ".") {
@@ -73,6 +79,7 @@ export default function calculate(obj, btnName) {
   }
 
   if (btnName === "=") {
+    
     if (obj.next && obj.operator) {
       return {
         result: operate(obj.prev, obj.next, obj.operator),
@@ -104,7 +111,17 @@ export default function calculate(obj, btnName) {
     return {};
   }
 
-  if (obj.operator) {  
+  if (obj.operator) {
+    if (!obj.next) {
+      let length = obj.expr.length;
+      let list = obj.expr.slice(0);
+      list[length - 1] = btnName;
+      return {
+        operator: btnName,
+        expr: list
+      }
+    }
+
     return {
       prev: operate(obj.prev, obj.next, obj.operator),
       next: null,
