@@ -1,0 +1,20 @@
+.component-display {
+  background-color: #858694;
+  color: white;
+  text-align: right;
+  font-weight: 200;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.prev-expr {
+  font-size: 1.5rem;
+}
+
+.result {
+  font-size: 1.5rem;
+}
+
+.next-value {
+  font-size: 2.5rem;
+}
